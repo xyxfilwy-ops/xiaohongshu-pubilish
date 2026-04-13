@@ -1,0 +1,52 @@
+[
+  {
+    "pattern": "超时",
+    "count": 2,
+    "priority": "P1",
+    "rule_type": "错误处理",
+    "problem": "连续2次出现超时相关问题",
+    "solution": "添加超时重试机制，失败后自动重试1-2次",
+    "examples": [
+      "图片生成超时，提示request timeout 1204",
+      "图片超时了，API返回1204错误"
+    ],
+    "suggested_rule": "\n```markdown\n### 超时处理规则\n- **触发条件**: API响应超时\n- **处理方式**: \n  1. 首次失败等待2秒重试\n  2. 第二次失败等待5秒重试\n  3. 第三次失败返回明确错误信息\n- **示例**:\n  ```\n  if \"timeout\" in str(error):\n      retry_with_backoff(max_retries=2)\n  ```\n```"
+  },
+  {
+    "pattern": "API错误",
+    "count": 1,
+    "priority": "P1",
+    "rule_type": "错误处理",
+    "problem": "连续1次出现API错误相关问题",
+    "solution": "添加API限流处理，429错误后等待合适时间重试",
+    "examples": [
+      "图片超时了，API返回1204错误"
+    ],
+    "suggested_rule": "\n```markdown\n### API限流处理\n- **触发条件**: 429错误或rate limit相关\n- **处理方式**:\n  1. 解析Retry-After头\n  2. 等待指定时间后重试\n  3. 记录连续触发次数\n```"
+  },
+  {
+    "pattern": "网络问题",
+    "count": 1,
+    "priority": "P1",
+    "rule_type": "错误处理",
+    "problem": "连续1次出现网络问题相关问题",
+    "solution": "添加网络状态检查，失败时提示用户检查网络",
+    "examples": [
+      "生成图片时网络连接失败"
+    ],
+    "suggested_rule": "\n```markdown\n### 错误处理规则\n- **问题**: 网络问题\n- **建议**: 添加网络状态检查，失败时提示用户检查网络\n```\n"
+  },
+  {
+    "pattern": "内容问题",
+    "count": 2,
+    "priority": "P2",
+    "rule_type": "Prompt优化",
+    "problem": "连续2次出现内容问题相关问题",
+    "solution": "优化Prompt或调整生成参数",
+    "examples": [
+      "图片生成超时，提示request timeout 1204",
+      "生成图片时网络连接失败"
+    ],
+    "suggested_rule": "\n```markdown\n### Prompt优化规则\n- **问题**: 内容问题\n- **建议**: 优化Prompt或调整生成参数\n```\n"
+  }
+]

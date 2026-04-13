@@ -1,0 +1,10 @@
+{
+  "ok": 1,
+  "success": 0,
+  "fail": 3,
+  "total": 4,
+  "last_updated": "2026-04-13T19:54:46.074704",
+  "ok_rate": 25.0,
+  "success_rate": 0.0,
+  "fail_rate": 75.0
+}

@@ -1,0 +1,18 @@
+{
+  "skill": "xiaohongshu-publisher",
+  "period": "week",
+  "timestamp": "2026-04-13T19:54:19.571253",
+  "stats": {
+    "total": 1,
+    "ok": 1,
+    "success": 0,
+    "fail": 0,
+    "ok_rate": 100.0,
+    "success_rate": 0.0,
+    "fail_rate": 0.0
+  },
+  "patterns": {},
+  "health_score": 100.0,
+  "urgency": "低",
+  "recommendations": []
+}

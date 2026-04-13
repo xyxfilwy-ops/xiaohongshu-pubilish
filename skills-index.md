@@ -10,6 +10,8 @@
 |----------|------|------|------|
 | xiaohongshu-publisher | v5.0 | 小红书图文笔记一键发布 | [skills/xiaohongshu-publisher](skills/xiaohongshu-publisher) |
 | diarization | v1.0 | 从非结构化内容抽取结构化档案 | [skills/diarization](skills/diarization) |
+| learning-loop | v1.0 | 技能自进化学习循环系统 | [skills/learning-loop](skills/learning-loop) |
+| resolver | v1.0 | 技能路由与上下文解析机制 | [skills/resolver](skills/resolver) |
 
 ---
 
@@ -71,6 +73,80 @@
 
 ---
 
+### learning-loop v1.0
+
+**用途**：技能自进化学习循环系统
+
+**调用方式**：
+```bash
+python ./learning-loop/scripts/collect_feedback.py
+  --skill <技能名>    # 目标技能
+  --feedback <类型>   # success|fail|partial
+  --notes <备注>      # 反馈详情
+
+python ./learning-loop/scripts/analyze_feedback.py
+  --skill <技能名>    # 目标技能
+  --period <周期>     # day|week|month
+
+python ./learning-loop/scripts/generate_improvement.py
+  --skill <技能名>    # 目标技能
+  --days <天数>       # 分析最近N天
+```
+
+**核心能力**：
+- 反馈收集（collect）
+- 模式分析（analyze）
+- 改进建议生成（improve）
+- SKILL.md自动更新
+
+**工作流**：
+```
+执行技能 → collect_feedback → 日志记录 → analyze → 模式识别 → improve → SKILL.md更新
+    ↑                                                                              ↓
+    └──────────────────────────── 持续迭代 ◄───────────────────────────────────────┘
+```
+
+**相关文档**：
+- [SKILL.md](skills/learning-loop/SKILL.md)
+- [README.md](skills/learning-loop/README.md)
+- [反馈日志模板](skills/learning-loop/templates/feedback-log.md)
+
+---
+
+### resolver v1.0
+
+**用途**：技能路由与上下文解析机制
+
+**核心功能**：
+- **意图识别**：将用户需求映射到具体技能
+- **上下文加载**：根据场景加载相关记忆和文档
+- **错误处理**：技能执行失败时的降级策略
+- **改进工作流**：持续优化路由规则
+
+**路由规则示例**：
+```yaml
+intent_mapping:
+  小红书:
+    - xiaohongshu-publisher
+  档案:
+    - diarization
+  反馈:
+    - learning-loop
+```
+
+**应用场景**：
+- 用户需求自动路由到合适的技能
+- 技能执行前的上下文准备
+- 执行失败后的降级处理
+
+**相关文档**：
+- [resolver-config.md](skills/resolver/resolver-config.md)
+- [README.md](skills/resolver/README.md)
+- [错误处理指南](skills/resolver/error-handling.md)
+- [改进工作流](skills/resolver/improvement-workflow.md)
+
+---
+
 ## 技能设计原则
 
 基于 Garry Tan 的 "Thin Harness, Fat Skills" 理念：
@@ -103,7 +179,7 @@
 
 ## 目录结构
 
-\`\`\`
+```
 xiaohongshu-pubilish/
 ├── README.md
 ├── skills-index.md              # 本文件
@@ -114,11 +190,26 @@ xiaohongshu-pubilish/
     │   ├── config.yaml
     │   ├── prompts/
     │   └── references/
-    └── diarization/             # 结构化档案抽取
-        ├── SKILL.md
-        ├── templates/
-        └── references/
-\`\`\`
+    ├── diarization/             # 结构化档案抽取
+    │   ├── SKILL.md
+    │   ├── templates/
+    │   └── references/
+    ├── learning-loop/           # 学习循环系统
+    │   ├── SKILL.md
+    │   ├── README.md
+    │   ├── scripts/
+    │   │   ├── collect_feedback.py
+    │   │   ├── analyze_feedback.py
+    │   │   └── generate_improvement.py
+    │   ├── templates/
+    │   └── logs/
+    └── resolver/                # 技能路由机制
+        ├── README.md
+        ├── resolver-config.md
+        ├── skill-descriptions.md
+        ├── error-handling.md
+        └── improvement-workflow.md
+```
 
 ---
 
